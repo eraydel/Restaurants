@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() , RestaurantAdapter.OnItemListener{
      */
 
     private fun getAllRestaurants(){
-        Toast.makeText(this,"Getting all restaurants...",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"¡Nuestras mejores recomendaciones!",Toast.LENGTH_SHORT).show()
         CoroutineScope(Dispatchers.IO).launch {
           val call: Response<RestaurantResponse> = getRetrofit().create(APIService::class.java).getAllRestaurants("listarestaurantes")
           val allRestaurants:RestaurantResponse? = call.body()
@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity() , RestaurantAdapter.OnItemListener{
         intent.putExtra("review_telephone" , item.telefono)
         intent.putExtra("photo_second" , item.fotos?.get(2)?.toString())
         intent.putExtra("photo_third" , item.fotos?.get(3)?.toString())
+        intent.putExtra("photo_fourth" , item.fotos?.get(1)?.toString())
         startActivity(intent)
     }
 }

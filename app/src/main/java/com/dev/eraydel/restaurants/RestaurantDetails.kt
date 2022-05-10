@@ -13,6 +13,7 @@ class RestaurantDetails : AppCompatActivity() {
     private lateinit var photo: String
     private lateinit var photo2: String
     private lateinit var photo3: String
+    private lateinit var photo4: String
     private lateinit var review_title: String
     private lateinit var review_description: String
     private lateinit var review_user: String
@@ -87,6 +88,12 @@ class RestaurantDetails : AppCompatActivity() {
             } else {
                 savedInstanceState?.getSerializable("photo_third") as String
             }
+
+            photo4 = if( bundle != null ){
+                bundle.getString("photo_fourth" , "photo_fourth")
+            } else {
+                savedInstanceState?.getSerializable("photo_fourth") as String
+            }
         }
 
         supportActionBar?.title = "Restaurant Detail"
@@ -110,5 +117,8 @@ class RestaurantDetails : AppCompatActivity() {
 
         var ivThird = findViewById<ImageView>(R.id.ivItem3)
         Picasso.get().load(photo3).into(ivThird)
+
+        var ivFourth = findViewById<ImageView>(R.id.ivItem4)
+        Picasso.get().load(photo4).into(ivFourth)
     }
 }

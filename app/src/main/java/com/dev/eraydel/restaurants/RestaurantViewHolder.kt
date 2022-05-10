@@ -37,13 +37,6 @@ class RestaurantViewHolder(view: View , onItemListener: RestaurantAdapter.OnItem
         rate.rating = item.calificacionPromedio?.toFloat()?.div(2) ?: 0.0F
         tvItemDesde.text = item.anioCreacion.toString()
         tvItemCostoPromedio.text = "$"+item.costoPromedio.toString()
-        //tvItemRate.text = "Rate  " + item.calificacionPromedio.toString()
-        //tv.text = item.resenia?.first()?.resenia_descripcion.toString()
-        //tv.text = item.nombre.toString()
-        //Picasso.get().load(item.fotos?.first()).into(iv)
-        //iv.setImageResource(R.drawable.ic_launcher_background)
-        // click item
-
         restaurant = item
 
     }

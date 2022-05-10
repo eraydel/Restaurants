@@ -7,8 +7,9 @@
     tools:context=".RestaurantDetails">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
     </androidx.core.widget.NestedScrollView>
 
@@ -160,38 +161,57 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView1"
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_margin="16dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating">
 
         <ImageView
             android:id="@+id/ivItem1"
-            android:layout_width="match_parent"
+            android:layout_width="100sp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_margin="16dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toBottomOf="@+id/rating">
 
         <ImageView
             android:id="@+id/ivItem3"
-            android:layout_width="match_parent"
+            android:layout_width="100sp"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_margin="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
+        app:layout_constraintEnd_toStartOf="@+id/cardView3"
+        app:layout_constraintStart_toEndOf="@+id/cardView1"
+        app:layout_constraintTop_toBottomOf="@+id/rating">
+
+        <ImageView
+            android:id="@+id/ivItem4"
+            android:layout_width="100sp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
