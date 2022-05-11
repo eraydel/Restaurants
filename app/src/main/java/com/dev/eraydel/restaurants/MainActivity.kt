@@ -2,6 +2,8 @@ package com.dev.eraydel.restaurants
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -24,6 +26,25 @@ class MainActivity : AppCompatActivity() , RestaurantAdapter.OnItemListener{
         setContentView(R.layout.activity_main)
         getAllRestaurants()
         initRecyclerView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here.
+        val id = item.getItemId()
+
+        if (id == R.id.home) {
+            val intent = Intent(this,Home::class.java)
+            startActivity(intent)
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 
@@ -77,8 +98,9 @@ class MainActivity : AppCompatActivity() , RestaurantAdapter.OnItemListener{
     }
 
     override fun clickRestaurant(item: Restaurantes) {
-        Toast.makeText(this, "Movie: ${item.nombre}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Restaurant: ${item.nombre}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this,RestaurantDetails::class.java)
+        intent.putExtra("id" , item.id.toString())
         intent.putExtra("nombre" , item.nombre)
         intent.putExtra("foto" , item.fotos?.first())
         intent.putExtra("review_title" , item.resenia?.first()?.titulo_resenia.toString())

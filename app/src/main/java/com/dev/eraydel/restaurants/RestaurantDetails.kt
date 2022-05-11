@@ -1,6 +1,9 @@
 package com.dev.eraydel.restaurants
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.RatingBar
@@ -9,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 
 class RestaurantDetails : AppCompatActivity() {
+    private lateinit var id: String
     private lateinit var  name: String
     private lateinit var photo: String
     private lateinit var photo2: String
@@ -22,12 +26,19 @@ class RestaurantDetails : AppCompatActivity() {
     private lateinit var review_address: String
     private lateinit var review_telephone: String
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restaurant_details)
         if(savedInstanceState == null)
         {
             val bundle = intent.extras
+
+            id = if( bundle != null ){
+                bundle.getString("id" , "0")
+            } else {
+                savedInstanceState?.getSerializable("id") as String
+            }
 
             name = if( bundle != null ){
                 bundle.getString("nombre" , "name")
@@ -120,5 +131,32 @@ class RestaurantDetails : AppCompatActivity() {
 
         var ivFourth = findViewById<ImageView>(R.id.ivItem4)
         Picasso.get().load(photo4).into(ivFourth)
+
+        findViewById<ImageView>(R.id.btnMaps).setOnClickListener{
+            val intent = Intent(this,Maps::class.java)
+            intent.putExtra("id" , id)
+            startActivity(intent)
+        }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here.
+        val id = item.getItemId()
+
+        if (id == R.id.home) {
+            val intent = Intent(this,Home::class.java)
+            intent.putExtra("id" , id)
+            startActivity(intent)
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

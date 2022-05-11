@@ -3,10 +3,14 @@ package com.dev.eraydel.restaurants
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.dev.eraydel.restaurants.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -16,10 +20,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class Login : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
-    //private lateinit var adapter : LoginAdapter
+
+    lateinit var authentication: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        authentication = FirebaseAuth.getInstance()
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -32,12 +41,41 @@ class Login : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        val user: FirebaseUser? = authentication.currentUser
+        val message: TextView = binding.tvMessage
+        if(user==null){
+            message.text = "¿Aún no tienes una cuenta?"
+        }else{
+            message.text = "Usuario inició sesión"
+            val intent = Intent(this,Home::class.java)
+            startActivity(intent)
+        }
+    }
+
     //login function
     private fun login(){
         if(validaForm()){
+            binding.progressBar.visibility = View.VISIBLE
             val email: EditText = binding.email
             val password: EditText = binding.password
-            auth(email.text.toString(),password.text.toString())
+            authentication.signInWithEmailAndPassword(email.text.toString(),password.text.toString()).addOnCompleteListener(){
+                if(it.isSuccessful){
+                    val user = authentication.currentUser
+                    user?.let {
+                        val email = user.email
+                        Toast.makeText(this,"Bienvenido $email", Toast.LENGTH_LONG).show()
+                        binding.progressBar.visibility = View.GONE
+                        val intent = Intent(this,Home::class.java)
+                        startActivity(intent)
+                    }
+                }else{
+                    binding.progressBar.visibility = View.GONE
+                    Message("Usuario incorrecto o no existe")
+                }
+            }
+
         } else {
             Message("¡Capture correctamente los campos!")
         }
